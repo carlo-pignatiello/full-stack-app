@@ -26,5 +26,6 @@ services:
     profile:
       - dev
       - database
+      
 volumes:
   pgdata:
