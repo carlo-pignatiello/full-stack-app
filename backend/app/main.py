@@ -1,6 +1,3 @@
-import os
+from fastapi import FastAPI
 
-env = os.getenv("POSTGRES_USER", "NA")
-
-if __name__ == "__main__":
-    print(env)
+app = FastAPI()
