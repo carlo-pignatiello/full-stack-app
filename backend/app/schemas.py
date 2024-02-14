@@ -7,3 +7,8 @@ class TokenRequest(BaseModel):
 class TokenSchema(BaseModel):
     access_token: str
     refresh_token: str
+
+class RegistrationSchema(BaseModel):
+    username: str
+    password: str
+    email: str

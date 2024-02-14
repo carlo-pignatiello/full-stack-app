@@ -7,7 +7,7 @@ class UserAccount(Base):
     __tablename__ = "user_account"
     id = Column(Integer, primary_key=True)
     email = Column(String, unique=True, index=True)
-    user_name = Column(String, unique=True, index=True)
+    username = Column(String, unique=True, index=True)
     hashed_password = Column(String)
     password_salt = Column(String)
     password_hash_algorithm = Column(String)
