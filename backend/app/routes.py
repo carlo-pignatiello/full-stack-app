@@ -4,7 +4,7 @@ from database import SessionLocal, engine
 from repos import create_user, check_user_existence, check_username, get_user
 from sqlalchemy.orm import Session
 from schemas import RegistrationSchema, TokenSchema, TokenRequest
-from auth import verify_password, create_access_token, refresh_access_token
+from auth import verify_password, create_access_token, refresh_access_token, JWTBearer
 
 
 Base.metadata.create_all(bind=engine)
@@ -52,6 +52,15 @@ def login(request: TokenRequest, db: Session = Depends(get_db)):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="Incorrect password"
         )
-    access = create_access_token(user.id)
-    refresh = refresh_access_token(user.id)
+    user_to_encode = {
+        "username": user.username,
+        "email": user.email,
+        "hashed_password": user.hashed_password
+    }
+    access = create_access_token(user_to_encode)
+    refresh = refresh_access_token(user_to_encode)
     return TokenSchema(access_token=access, refresh_token=refresh)
+
+@user_router.get("/todo", dependencies=[Depends(JWTBearer())])
+def todo():
+    return "todo"
