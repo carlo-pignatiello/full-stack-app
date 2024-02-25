@@ -5,8 +5,12 @@ import os
 
 user = os.getenv("POSTGRES_USER", "NA")
 password = os.getenv("POSTGRES_PASSWORD", "NA")
-SQLALCHEMY_DATABASE_URL = "postgresql://postgres:postgres@192.168.1.29/postgres"
+database = os.getenv("POSTGRES_DATABASE", "NA")
+host = os.getenv("POSTGRES_HOST", "NA")
+port = os.getenv("POSTGRES_PORT", "NA")
 
+SQLALCHEMY_DATABASE_URL = f"postgresql://{user}:{password}@{host}:{port}/{database}"
+print(SQLALCHEMY_DATABASE_URL)
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL
 )
